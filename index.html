@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>市值型 ETF 定期定額入門教學</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #0f172a;
+            color: #334155;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slides-container {
+            width: 90vw;
+            max-width: 960px;
+            height: 80vh;
+            max-height: 640px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide {
+            flex: 1;
+            padding: 48px 56px 32px 56px;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+        .slide.active {
+            display: flex;
+        }
+        h2 {
+            font-size: 28px;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+        p, li {
+            font-size: 17px;
+            line-height: 1.6;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+        ul {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+        .tip-box {
+            background-color: #eff6ff;
+            border-left: 5px solid #3b82f6;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+        .tip-title {
+            font-weight: 700;
+            color: #1d4ed8;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        .tip-content {
+            font-size: 15px;
+            color: #1e40af;
+            margin-bottom: 0;
+        }
+        .slide-footer {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+        .footer-source {
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .footer-assumption {
+            color: #d97706;
+            font-weight: 600;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 56px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        .btn {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #2563eb;
+        }
+        .btn:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+        }
+        .page-indicator {
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+        }
+        .highlight {
+            color: #2563eb;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slides-container">
+
+    <!-- Slide 1 -->
+    <div class="slide active" id="slide-1">
+        <div>
+            <h2>第 1 頁：歡迎與課程導覽</h2>
+            <p>歡迎來到<span class="highlight">「市值型 ETF 定期定額入門」</span>學習地圖！本課程專為完全零經驗的投資新手設計，帶領您一步步掌握被動投資的核心心法。</p>
+            <ul>
+                <li>從零建立正確的指數化投資觀念</li>
+                <li>學會定期定額與抗震心法</li>
+                <li>避開內扣費用與複利陷阱</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">投資不需要每天盯盤看財報，掌握正確的指數化投資邏輯，讓時間與複利為您工作！</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: wiki/overview.md</span>
+            <span class="footer-assumption">教學假設：無（觀念導覽）</span>
+        </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide" id="slide-2">
+        <div>
+            <h2>第 2 頁：什麼是市值型 ETF？</h2>
+            <p><span class="highlight">ETF（Exchange Traded Fund，指數股票型基金）</span>是在證券交易所掛牌買賣的基金，目標是複製特定大盤指數的表現。</p>
+            <ul>
+                <li><strong>被動投資</strong>：不依賴基金經理人主觀挑選個股或猜測高低點。</li>
+                <li><strong>市值加權</strong>：依照公司「總市值（股價 × 發行股數）」決定權重，公司越大佔比越高。</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">買進市值型 ETF 就等於一次買進一籃子該市場最具代表性的龍頭企業，輕鬆享有整體經濟成長果實。</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: raw/01_market_cap_etf_basics.md#定義與核心邏輯</span>
+            <span class="footer-assumption">教學假設：無（基礎定義）</span>
+        </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide" id="slide-3">
+        <div>
+            <h2>第 3 頁：自動汰弱留強機制</h2>
+            <p>大盤指數通常每季或每半年會進行一次成分股定期審核，賦予市值型 ETF 強大的動態調整能力。</p>
+            <ul>
+                <li><strong>汰換落後企業</strong>：當公司營運衰退、市值跌出榜單外時會被自動剔除。</li>
+                <li><strong>納入新興龍頭</strong>：新成長起來的大型企業會被納入指數中。</li>
+                <li><strong>分散非系統性風險</strong>：持有市值型 ETF 可有效避免單一公司倒閉帶來的毀滅性打擊。</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">初學者常擔心買到體質變差的公司股票。市值型 ETF 的特色就是自動幫您汰弱留強，省去手動換股的煩惱。</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: raw/01_market_cap_etf_basics.md#汰弱留強機制</span>
+            <span class="footer-assumption">教學假設：無（機制說明）</span>
+        </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide" id="slide-4">
+        <div>
+            <h2>第 4 頁：定期定額（DCA）與微笑曲線</h2>
+            <p><span class="highlight">定期定額（Dollar-Cost Averaging, DCA）</span>是指在固定時間（如每月 6 號）投入固定金額買進同一檔 ETF。</p>
+            <ul>
+                <li><strong>運作原理</strong>：股價高時買到較少股數；股價低時買到較多股數，拉平平均成本。</li>
+                <li><strong>微笑曲線</strong>：市場先跌後回升時，低檔累積的大量低價單位數能加速回本獲利。</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">擔心買在高點？定期定額幫您分散進場時間點，最適合有固定薪資現金流、無暇盯盤上班族與學生。</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: raw/02_dca_vs_lump_sum.md#定期定額（Dollar-Cost Averaging）運作方式</span>
+            <span class="footer-assumption">教學假設：固定時間與固定金額紀律扣款</span>
+        </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide" id="slide-5">
+        <div>
+            <h2>第 5 頁：隱性成本—內扣費用與追蹤誤差</h2>
+            <p>持有 ETF 雖然不用額外繳管理費，但投信會從基金淨值中直接內扣各項營運成本。</p>
+            <ul>
+                <li><strong>總開銷比率（Expense Ratio, TER）</strong>：包含經理費、保管費與買賣交易雜支。</li>
+                <li><strong>追蹤誤差（Tracking Error）</strong>：ETF 實際報酬與目標指數報酬之間的落差（受內扣費用與現金拖累影響）。</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">教學假設試算：若總開銷比率相差 0.7%（如 0.3% vs 1.0%），投入 100 萬元一年就差了 7,000 元隱性內扣費用，長期對複利侵蝕不容輕視！</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: raw/03_expense_ratio_tracking_error.md#什麼是內扣費用（總開銷比率）</span>
+            <span class="footer-assumption">教學假設：本金 100 萬元、內扣費率差 0.7% 試算</span>
+        </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide" id="slide-6">
+        <div>
+            <h2>第 6 頁：價格報酬 vs 含息報酬與複利滾存</h2>
+            <p>新手看盤常只注意股價漲跌（價格報酬），卻忽略了發放現金股利後的<span class="highlight">含息報酬</span>與複利效應。</p>
+            <ul>
+                <li><strong>股息再投入</strong>：將每年領到的現金股利手動或透過券商再買回 ETF，使持股數持續增加。</li>
+                <li><strong>複利曲線</strong>：前期靠本金累積，10 年後「時間與股息再投入」成為資產成長主力。</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">教學假設試算：每月定期定額 5,000 元、年化報酬率 6%，連續 20 年期末資產約 231 萬元（超過 110 萬元來自複利滾存）。千萬別把股息領出來花掉！</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: raw/04_dividend_reinvestment.md#複利試算示意（教學假設）</span>
+            <span class="footer-assumption">教學假設：月投 5,000 元、年化報酬率 6%、期數 10/20 年</span>
+        </div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide" id="slide-7">
+        <div>
+            <h2>第 7 頁：投資前必備防線—緊急預備金</h2>
+            <p>在開始任何定期定額扣款之前，必須先建立好強固的安全防線。</p>
+            <ul>
+                <li><strong>緊急預備金優先</strong>：先存好 3 到 6 個月基本生活費於高流動性活存帳戶。</li>
+                <li><strong>避免被迫認賠</strong>：若無預備金，突遇失業或急用錢又碰上股市大跌時，往往被迫在低點含淚賣出 ETF。</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">新手最常見的錯誤是「把所有現金一次投入股市，完全不留預備金」。請務必先準備好預備金再開始投資！</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: raw/05_asset_allocation_risk.md#緊急預備金優先原則</span>
+            <span class="footer-assumption">教學假設：預備金天數 3-6 個月生活費</span>
+        </div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide" id="slide-8">
+        <div>
+            <h2>第 8 頁：空頭市場與資產配置</h2>
+            <p>市值型 ETF 雖然分散了個股風險，但依然會隨著總體經濟景氣起伏而面臨<span class="highlight">系統性風險</span>。</p>
+            <ul>
+                <li><strong>正常回檔</strong>：遇到空頭市場時，帳面出現 20% 至 30% 的回檔屬於正常現象。</li>
+                <li><strong>股債搭配</strong>：若無法承受劇烈波動，可透過「80% 市值型 ETF ＋ 20% 債券型 ETF/定存」等資產配置降低整體波動。</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">股市大跌 20%-30% 是長期投資必然會遇到的正常風景，建立資產配置與心理建設才能抱得安心。</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: raw/05_asset_allocation_risk.md#風險承受度與股債搭配</span>
+            <span class="footer-assumption">教學假設：空頭回檔 20%-30%、股債配置比例 80/20</span>
+        </div>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide" id="slide-9">
+        <div>
+            <h2>第 9 頁：新手總結與行動指南</h2>
+            <p>恭喜您完成「市值型 ETF 定期定額入門」學習之旅！讓我們複習 5 大核心心法：</p>
+            <ul>
+                <li>1. 認識市值型 ETF 的自動汰弱留強機制</li>
+                <li>2. 運用定期定額（DCA）與微笑曲線克服高點恐懼</li>
+                <li>3. 挑選內扣費用（TER）較低的標的以保護複利</li>
+                <li>4. 堅持股息再投入，讓時間放大資產規模</li>
+                <li>5. 備妥 3-6 個月緊急預備金並做好資產配置</li>
+            </ul>
+            <div class="tip-box">
+                <div class="tip-title">💡 新手提示</div>
+                <p class="tip-content">投資是一場馬拉松而非短跑。現在就檢視您的預備金，開啟您的第一筆定期定額紀律投資吧！</p>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="footer-source">來源: wiki/overview.md & wiki/concepts/index.md</span>
+            <span class="footer-assumption">教學假設：總結回顧</span>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button class="btn" id="prev-btn" onclick="changeSlide(-1)" disabled>上一頁</button>
+        <div class="page-indicator" id="page-indicator">第 1 頁 / 共 9 頁</div>
+        <button class="btn" id="next-btn" onclick="changeSlide(1)">下一頁</button>
+    </div>
+
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = 9;
+
+    function updateSlides() {
+        for (let i = 1; i <= totalSlides; i++) {
+            const slide = document.getElementById(`slide-${i}`);
+            if (i === currentSlide) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        }
+
+        document.getElementById('page-indicator.innerHTML', `第 ${currentSlide} 頁 / 共 ${totalSlides} 頁`);
+        document.getElementById('page-indicator').innerText = `第 ${currentSlide} 頁 / 共 ${totalSlides} 頁`;
+
+        document.getElementById('prev-btn').disabled = currentSlide === 1;
+        document.getElementById('next-btn').disabled = currentSlide === totalSlides;
+    }
+
+    function changeSlide(direction) {
+        currentSlide += direction;
+        if (currentSlide < 1) currentSlide = 1;
+        if (currentSlide > totalSlides) currentSlide = totalSlides;
+        updateSlides();
+    }
+
+    // 鍵盤左右鍵切換
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+            if (currentSlide < totalSlides) changeSlide(1);
+        } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+            if (currentSlide > 1) changeSlide(-1);
+        }
+    });
+
+    updateSlides();
+</script>
+
+</body>
+</html>
